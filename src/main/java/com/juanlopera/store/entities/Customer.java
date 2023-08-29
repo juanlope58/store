@@ -9,8 +9,8 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Digits;
 
 @Entity
-@Table(name = "client")
-public class Client {
+@Table(name = "customer")
+public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +23,7 @@ public class Client {
     @Column
     private Long phoneNumber;
 
-    public Client(){
+    public Customer(){
 
     }
 
