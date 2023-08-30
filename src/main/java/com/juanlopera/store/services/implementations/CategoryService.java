@@ -36,7 +36,7 @@ public class CategoryService implements ICategoryService {
     }
 
     @Override
-    public ResponseEntity<Category> udate(Category category) {
+    public ResponseEntity<Category> update(Category category) {
         try {
             return new ResponseEntity<Category>(this.categoryRepository.save(category),HttpStatus.OK);
         } catch (Exception e) {

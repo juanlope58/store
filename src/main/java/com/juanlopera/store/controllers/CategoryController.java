@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+// import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.juanlopera.store.entities.Category;
 import com.juanlopera.store.services.contracts.ICategoryService;
+
+import jakarta.websocket.server.PathParam;
 
 @RestController
 @RequestMapping("/category")
@@ -34,11 +36,11 @@ public class CategoryController {
 
     @PutMapping("/update")
     private ResponseEntity<Category> updateCategory(@RequestBody Category category){
-        return this.categoryService.udate(category);
+        return this.categoryService.update(category);
     }
 
-    @DeleteMapping("/delete")
-    private ResponseEntity<Boolean> deleteCategory(@RequestParam Long id){
+    @DeleteMapping("/delete/{id}")
+    private ResponseEntity<Boolean> deleteCategory(@PathParam("id") Long id){
         return this.categoryService.delete(id);
     }    
 }

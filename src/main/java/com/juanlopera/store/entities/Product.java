@@ -1,10 +1,14 @@
 package com.juanlopera.store.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -21,6 +25,9 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "category_id",nullable = true)
     private Category category;
+
+    @ManyToMany(mappedBy = "products")
+    private List<Sale> sales = new ArrayList<>();
 
     public Product(){}
 
@@ -56,5 +63,12 @@ public class Product {
         this.category = category;
     }
 
+    public List<Sale> getSales() {
+        return sales;
+    }
+
+    public void setSales(List<Sale> sales) {
+        this.sales = sales;
+    }
     
 }

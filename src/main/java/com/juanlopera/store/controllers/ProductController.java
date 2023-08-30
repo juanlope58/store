@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+// import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.juanlopera.store.entities.Product;
 import com.juanlopera.store.services.contracts.IProductService;
+
+import jakarta.websocket.server.PathParam;
 
 
 @RestController
@@ -38,8 +40,8 @@ public class ProductController {
         return this.productService.update(product);
     }
 
-    @DeleteMapping("/delete")
-    private ResponseEntity<Boolean> deleteProduct(@RequestParam Long id){
+    @DeleteMapping("/delete/{id}")
+    private ResponseEntity<Boolean> deleteProduct(@PathParam("id") Long id){
         return this.productService.delete(id);
     }
 
