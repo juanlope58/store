@@ -55,7 +55,6 @@ public class ProductService implements IProductService {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 
         } catch (IllegalArgumentException e) {
-            System.out.println("El producto no puede ser null");
             return new ResponseEntity<Product>(HttpStatus.BAD_REQUEST);
 
         }catch (Exception e) {
