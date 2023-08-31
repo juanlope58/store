@@ -3,6 +3,8 @@ package com.juanlopera.store.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,7 +27,9 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "category_id",nullable = true)
     private Category category;
-
+    
+    
+    @JsonIgnore
     @ManyToMany(mappedBy = "products")
     private List<Sale> sales = new ArrayList<>();
 

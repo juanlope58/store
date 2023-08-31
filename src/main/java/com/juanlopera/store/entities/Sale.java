@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,6 +24,7 @@ public class Sale {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @CreationTimestamp
     private LocalDate date;
 
     @ManyToOne //pueden haber muchas ventas para un cliente
@@ -70,5 +73,4 @@ public class Sale {
     public void setProducts(List<Product> products) {
         this.products = products;
     }
-    
 }

@@ -6,17 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-// import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.juanlopera.store.dto.ProductRequestDTO;
 import com.juanlopera.store.entities.Product;
 import com.juanlopera.store.services.contracts.IProductService;
-
-import jakarta.websocket.server.PathParam;
 
 
 @RestController
@@ -30,18 +29,18 @@ public class ProductController {
         return this.productService.findAll();
     }
 
-    @PostMapping(value="/create")
-    private ResponseEntity<Product> createProduct(@RequestBody Product product) {
-        return this.productService.create(product);
+    @PostMapping("/create")
+    private ResponseEntity<Product> createProduct(@RequestBody ProductRequestDTO productRequest) {
+        return this.productService.create(productRequest);
     }
     
-    @PutMapping(value="update")
-    private ResponseEntity<Product> updateProduct(@RequestBody Product product) {
-        return this.productService.update(product);
+    @PutMapping("/update")
+    private ResponseEntity<Product> updateProduct(@RequestBody ProductRequestDTO productRequest) {
+        return this.productService.update(productRequest);
     }
 
     @DeleteMapping("/delete/{id}")
-    private ResponseEntity<Boolean> deleteProduct(@PathParam("id") Long id){
+    private ResponseEntity<Boolean> deleteProduct(@PathVariable("id") Long id){
         return this.productService.delete(id);
     }
 
