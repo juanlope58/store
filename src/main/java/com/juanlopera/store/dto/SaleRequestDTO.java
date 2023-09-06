@@ -5,6 +5,9 @@ import java.util.List;
 public class SaleRequestDTO {
 
     private String date;
+    private String startDate;
+    private String endDate;
+
     private Long customerId;
     private List<Long> productIds;
     
@@ -34,6 +37,22 @@ public class SaleRequestDTO {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
 
     

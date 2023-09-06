@@ -62,4 +62,19 @@ public class SaleController {
             return ResponseEntity.internalServerError().body(null);
         }
     }
+
+    @GetMapping("/salesByCustomerBetweenDates")
+    private ResponseEntity<List<Sale>> getSalesBetweenDates(@RequestBody SaleRequestDTO saleRequest){
+        try {
+            LocalDate date1 = LocalDate.parse(saleRequest.getStartDate());
+            LocalDate date2 = LocalDate.parse(saleRequest.getEndDate());
+            Long customerId = saleRequest.getCustomerId();
+            return this.saleService.findByCustomerAndDateBetween(customerId, date1, date2);
+
+        }catch(DateTimeParseException e){
+            return ResponseEntity.badRequest().body(null);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(null);
+        }
+    }
 }

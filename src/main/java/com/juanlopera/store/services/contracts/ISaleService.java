@@ -15,4 +15,5 @@ public interface ISaleService {
     public ResponseEntity<Boolean> delete(Long id);
     public ResponseEntity<List<Sale>> findByCustomerId(Long customerId);
     public ResponseEntity<List<Sale>> findByDate(LocalDate date);
+    public ResponseEntity<List<Sale>> findByCustomerAndDateBetween(Long customerId, LocalDate date1, LocalDate date2);
 }

@@ -119,10 +119,26 @@ public class SaleService implements ISaleService {
             return new ResponseEntity<List<Sale>>(sales, HttpStatus.OK);
 
         }catch(NoSuchElementException e){
-            System.err.println("Se ha producido una excepcion"+e.getMessage());
+            System.err.println("Se ha producido una excepcion: "+e.getMessage());
             return ResponseEntity.badRequest().body(null);
         } catch (Exception e) {
             return new ResponseEntity<List<Sale>>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public ResponseEntity<List<Sale>> findByCustomerAndDateBetween(Long customerId, LocalDate date1, LocalDate date2) {
+        try {
+            List<Sale> sales = this.saleRepository.findByCustomerAndDateBetween(customerId, date1, date2);
+            if (sales.isEmpty()){
+                throw new NoSuchElementException("No hay ventas para este cliente en estas fechas");
+            }
+            return new ResponseEntity<List<Sale>>(sales,HttpStatus.OK);
+        }catch(NoSuchElementException e){
+            System.err.println("Ocurrió una excepción: "+e.getMessage());
+            return ResponseEntity.badRequest().body(null);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(null);
         }
     }
     
