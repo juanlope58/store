@@ -1,6 +1,8 @@
 package com.juanlopera.store.services.implementations;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -86,6 +88,41 @@ public class SaleService implements ISaleService {
             return new ResponseEntity<Boolean>(true,HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<Boolean>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public ResponseEntity<List<Sale>> findByCustomerId(Long customerId) {
+        try {
+            Customer customer = new Customer();
+            customer = this.customerRepository.findById(customerId).orElseThrow(()-> new EntityNotFoundException("El cliente no existe"));
+            List<Sale> sales = customer.getSales();
+            // System.out.println("Hola---------------------------------------------------------------------------------------------------------------------------------------------------------------");
+            // Scanner scanner=new Scanner(System.in);
+            // scanner.nextLine();
+            // scanner.close();
+            return new ResponseEntity<List<Sale>>(sales,HttpStatus.OK);
+        }catch (EntityNotFoundException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        } catch (Exception e) {
+            return new ResponseEntity<List<Sale>>(HttpStatus.INTERNAL_SERVER_ERROR);            
+        }
+    }
+
+    @Override
+    public ResponseEntity<List<Sale>> findByDate(LocalDate date) {
+        try {
+            List<Sale> sales = this.saleRepository.findByDate(date);
+            if(sales.isEmpty()){
+                throw new NoSuchElementException("No hay ventas en esta fecha");
+            }
+            return new ResponseEntity<List<Sale>>(sales, HttpStatus.OK);
+
+        }catch(NoSuchElementException e){
+            System.err.println("Se ha producido una excepcion"+e.getMessage());
+            return ResponseEntity.badRequest().body(null);
+        } catch (Exception e) {
+            return new ResponseEntity<List<Sale>>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     

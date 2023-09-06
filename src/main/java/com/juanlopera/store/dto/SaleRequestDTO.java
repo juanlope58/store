@@ -4,6 +4,7 @@ import java.util.List;
 
 public class SaleRequestDTO {
 
+    private String date;
     private Long customerId;
     private List<Long> productIds;
     
@@ -26,5 +27,15 @@ public class SaleRequestDTO {
     public void setProductIds(List<Long> productIds) {
         this.productIds = productIds;
     }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    
 
 }

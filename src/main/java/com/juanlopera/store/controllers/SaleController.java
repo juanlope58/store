@@ -1,5 +1,7 @@
 package com.juanlopera.store.controllers;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +46,20 @@ public class SaleController {
         return this.saleService.delete(id);
     }
     
-    
+    @GetMapping("/salesByCustomer/{customerId}")
+    private ResponseEntity<List<Sale>> getSalesByCustomer(@PathVariable Long customerId){
+        return this.saleService.findByCustomerId(customerId);
+    }
+
+    @GetMapping("/salesByDate")
+    private ResponseEntity<List<Sale>> getSalesByDate(@RequestBody SaleRequestDTO saleRequest){
+        try {
+            LocalDate date = LocalDate.parse(saleRequest.getDate());
+            return this.saleService.findByDate(date);
+        }catch(DateTimeParseException e){
+            return ResponseEntity.badRequest().body(null);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(null);
+        }
+    }
 }

@@ -3,6 +3,8 @@ package com.juanlopera.store.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,6 +29,7 @@ public class Customer {
     @Column
     private Long phoneNumber;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "customer")
     private List<Sale> sales = new ArrayList<>();
 
@@ -56,6 +59,14 @@ public class Customer {
 
     public void setPhoneNumber(Long phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public List<Sale> getSales() {
+        return sales;
+    }
+
+    public void setSales(List<Sale> sales) {
+        this.sales = sales;
     }
 
     
