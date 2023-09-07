@@ -40,7 +40,11 @@ public class SaleController {
         return this.saleService.create(saleRequest);
     }
     
-    
+    // {
+    //     "id":16,
+    //     "customerId":2,
+    //     "productIds": [1, 4, 8]
+    // }
     @PutMapping("update")
     private ResponseEntity<Sale> updateSale(@RequestBody SaleRequestDTO saleRequest) {
         return this.saleService.update(saleRequest);
@@ -56,6 +60,9 @@ public class SaleController {
         return this.saleService.findByCustomerId(customerId);
     }
 
+    // {
+    //     "date":"2023-09-05"
+    // }
     @GetMapping("/salesByDate")
     private ResponseEntity<List<Sale>> getSalesByDate(@RequestBody SaleRequestDTO saleRequest){
         try {
@@ -67,7 +74,13 @@ public class SaleController {
             return ResponseEntity.internalServerError().body(null);
         }
     }
-
+    
+    // {
+    //     "customerId":1,
+    //     "startDate":"2023-08-20",
+    //     "endDate":"2023-09-06"
+    
+    // }
     @GetMapping("/salesByCustomerBetweenDates")
     private ResponseEntity<List<Sale>> getSalesBetweenDates(@RequestBody SaleRequestDTO saleRequest){
         try {
