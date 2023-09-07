@@ -29,11 +29,22 @@ public class ProductController {
         return this.productService.findAll();
     }
 
+    // {
+    //     "name"="product name",
+    //     "price": float num,
+    //     "categoryId": Long id
+    // }
     @PostMapping("/create")
     private ResponseEntity<Product> createProduct(@RequestBody ProductRequestDTO productRequest) {
         return this.productService.create(productRequest);
     }
     
+    // {
+    //     "id": Long id,
+    //     "name":"product name",
+    //     "price": float num,
+    //     "categoryId": Long id
+    // }
     @PutMapping("/update")
     private ResponseEntity<Product> updateProduct(@RequestBody ProductRequestDTO productRequest) {
         return this.productService.update(productRequest);

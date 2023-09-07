@@ -87,7 +87,6 @@ public class SaleService implements ISaleService {
                 System.out.println("Valor a pagar: "+totalActualPrice);
             }
             
-
             return new ResponseEntity<Sale>(this.saleRepository.save(sale), HttpStatus.OK);
 
         } catch (EntityNotFoundException e) {
@@ -105,9 +104,27 @@ public class SaleService implements ISaleService {
     @Override
     public ResponseEntity<Sale> update(SaleRequestDTO saleRequest) {
         try {
-            Sale sale = new Sale();
+            Sale sale = saleRepository.findById(saleRequest.getId()).orElseThrow(()-> new EntityNotFoundException("No se encuantra la venta con el id entregado"));
+
+            Customer customer = customerRepository.findById(saleRequest.getCustomerId()).orElseThrow(() -> new EntityNotFoundException("Cliente no encontrado"));
+            
+            //Obtengo la lista de productos que van en la compra por medio de sus ids
+            List<Product> products = productRepository.findAllById(saleRequest.getProductIds());
+            if (products.isEmpty()){
+                throw new IllegalArgumentException("Debe haber al menos un producto");
+            }
+            sale.setCustomer(customer);
+            sale.setProducts(products);
             return new ResponseEntity<Sale>(this.saleRepository.save(sale) ,HttpStatus.OK);
-        } catch (Exception e) {
+
+        } catch (EntityNotFoundException e) {
+            System.err.println("Se encontró una excepción: "+e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            
+        }catch (IllegalArgumentException e){
+            System.err.println("Se encontró una excepción: "+e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }catch (Exception e){
             return new ResponseEntity<Sale>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

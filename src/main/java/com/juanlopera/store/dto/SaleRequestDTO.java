@@ -4,6 +4,7 @@ import java.util.List;
 
 public class SaleRequestDTO {
 
+    private Long id;
     private String date;
     private String startDate;
     private String endDate;
@@ -53,6 +54,14 @@ public class SaleRequestDTO {
 
     public void setEndDate(String endDate) {
         this.endDate = endDate;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     

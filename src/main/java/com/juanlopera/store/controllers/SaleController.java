@@ -31,10 +31,15 @@ public class SaleController {
         return this.saleService.findAll();
     }
 
+    // {
+    //     "customerId":2,
+    //     "productIds":[7,1,8]
+    // }
     @PostMapping("/create")
     private ResponseEntity<Sale> createSale(@RequestBody SaleRequestDTO saleRequest) {
         return this.saleService.create(saleRequest);
     }
+    
     
     @PutMapping("update")
     private ResponseEntity<Sale> updateSale(@RequestBody SaleRequestDTO saleRequest) {
